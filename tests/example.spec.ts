@@ -39,6 +39,8 @@ test('Como utilizar Locator', async ({ page }) => {
   
 
   // by combine differents locators - Add one by one without any blank space
+  // teste de commit
+
 
   // by XPath
 
