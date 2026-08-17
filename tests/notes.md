@@ -1,160 +1,172 @@
-Playwright UI Testing with TypeScript - Notes from the video classes
+Teste de UI do Playwright com TypeScript - Anotações das videoaulas
 
----> Environment Configuration
+---> Configuração do Ambiente
 
-1. Download and install Node.js (LTS)
-	Verify if you already have in your machine running at the terminal: node -v and npm -v
-	Node.js is the virtual env. to be able to run JavaScript outside the browser (on our computer). This happen because JavaScript was created to run into the Browser. With this we are able to use commands lines like npm
+1. Baixe e instale o Node.js (LTS)
 
-2. Download and install an IDE. In this course we are gonna use Visual Studio Code
+Verifique se você já o tem instalado em sua máquina, executando os seguintes comandos no terminal: `node -v` e `npm -v`
+
+O Node.js é um ambiente virtual que permite executar JavaScript fora do navegador (no seu computador). Isso acontece porque o JavaScript foi criado para ser executado no navegador. Com ele, podemos usar comandos como o `npm`.
+
+2. Baixe e instale uma IDE. Neste curso, usaremos o Visual Studio Code.
 
 3. Git
-	Verify if you already have in your machine running at the terminal: git -v
+
+Verifique se você já o tem instalado em sua máquina, executando os seguintes comandos no terminal: `git -v`
 
 *
 
----> Clone the application that we are gonna use to work in this course:
+---> Clone o aplicativo que usaremos neste curso:
 
-Step 1: Clone the Application
-	Fork the project and clone your own repository to your workspace
+Passo 1: Clone o Aplicativo
 
-Step 2: Install Dependencies
-	npm install --force
+Faça um fork do projeto e clone seu próprio repositório para o seu espaço de trabalho.
 
-Step 3: Run the Application
-	npm start
-	To access: localhost:4200
+Passo 2: Instale as Dependências
+
+npm install --force
+
+Passo 3: Execute o Aplicativo
+
+npm start
+
+Para acessar: localhost:4200
 
   *
 
----> Playwright Installation - Doc: https://playwright.dev/docs/intro
+---> Instalação do Playwright - Documentação: https://playwright.dev/docs/intro
 
-1. Goes to the folder do you wanna install the PW
-2. Run in the terminal: npm init playwright@latest
-3. Finish to choose the options you wanna for the installation
+1. Acesse a pasta onde deseja instalar o Playwright.
+2. Execute o seguinte comando no terminal: `npm init playwright@latest`
+3. Finalize a instalação escolhendo as opções desejadas.
 
+Visão geral da estrutura de pastas
 
-Folder Structure Overview
-	After installation, the following folder structure is created:
+Após a instalação, a seguinte estrutura de pastas será criada:
 
-a. node-modules: Contains libraries and components, including the Playwright framework.
-	If you need to delete this folder, when you run [npm install] this folder will be automatically generated again
+a. `node-modules`: Contém bibliotecas e componentes, incluindo o framework Playwright.
 
-b. test: Contains test files, with example.spec.ts as a sample.
+Caso precise excluir esta pasta, ao executar `npm install`, ela será recriada automaticamente.
 
-c. gitignore: Excludes certain folders from the git repository when we perform a commit and push commands
+b. `test`: Contém arquivos de teste, com o arquivo `example.spec.ts` como exemplo.
 
-d. package.json: Describes the project and its dependencies [like npm scripts and dev dependencies].
+c. `gitignore`: Exclui determinadas pastas do repositório Git ao executar comandos de commit e push.
 
-e.  package-lock.json: Can be safetly deleted, when you run [npm install] this file will be automatically generated again
+d. `package.json`: Descreve o projeto e suas dependências [como scripts npm e dependências de desenvolvimento].
 
-e. Playwright.config.ts: Main configuration file for Playwright settings.
+e. package-lock.json: Pode ser excluído sem problemas; ao executar [npm install], este arquivo será gerado automaticamente novamente.
 
-*
+e. Playwright.config.ts: Arquivo de configuração principal para as definições do Playwright.
 
----> Run with command line
-
-Running Tests
-
-a. To run all test cases in headless mode by default (all projects/browsers)
-	npx playwright test
-
-b. To run tests in headed mode (visible browser) (add --headed) (all projects/browsers)
-	npx playwright test --headed
-
-c. To see the report after run the tests 
-	npx playwright show-report
-
-
-Running Tests in Specific Browsers (project)
-
-d. To run tests for a specific browser, specify the project
-	npx playwright test --project=Chromium
-
-
-Running Specific Test Files
-
-e. To run a specific test file and with specific browser (project)
-	npx playwright test example.spec.ts
-	npx playwright test example.spec.ts --project=Chromium
-
-
-f. To run a specific test by name (all projects/browsers)
-	npx playwright test -g "has title"
-
-
-For skip some test we can use .skip in the test function to skip this when we are running
-	test.skip('', async ({page}) => {})
-
-For execute just 1 TC in a file we can use .only:
-	test.only('', async ({page}) => {})
-
-Running in UI mode
-  npx playwright test --ui
-
-Debugging Options
-
-a. To run tests with tracing, use the command. This way, after run, look to the report file that was generated and you will can se the trace.
-	npx playwright test --trace on
-
-b. To debug run the command and the playwright will open a new windows to see the code to debug:
-	npx playwright test --debug
-
-  c. Put a breaking point on the left side of the code and run using the debug option in the Playwright plugin on the VScode
-
-*
-
-
----> HTML terminology
-
-a. HTML Tag: Starts and ends with angle braces <> - (e.g., <input>) - .
-
-b. HTML Attributes: Characteristics of HTML tags, which may or may not have values (e.g., placeholder="email").
-
-c. Parent and Child Elements: Elements above are parent elements, while those below are child elements. Sibling elements are at the same level.
-
-*
-
-
----> Locator Syntax Rules:
-
-a. By Tag Name: Use the tag name as a string. For example, page.locator('input').
-
-b. By ID: Prefix the ID with a hash sign. Example: page.locator('#input-email1').
-
-c. By Class: Prefix the class with a dot. Example: page.locator('.shape-rectangle').
-
-d. By Attribute: Use square brackets. Example: page.locator('[placeholder="email"]').
-
-e. Combining Selectors: Combine tag and attribute without spaces. Example: page.locator('input[placeholder="email"]').
-
-f. XPath: While possible, it is not recommended. Example: page.locator('//input[@id="input-email1"]').
-
-g. Text Matching: Use page.locator({ text: 'partial text' }) for partial matches and page.locator({ text: 'exact text' }) for exact matches.
 
 
 *
 
----> Best Practices for Locators
+---> Executar com a linha de comando
 
-Use the following methods to create user-facing locators:
+Executando Testes
 
-a. getByRole: Identifies elements by their role. Example: await page.getByRole('textbox', { name: 'email' }).
+a. Para executar todos os casos de teste no modo headless por padrão (todos os projetos/navegadores)
 
-b. getByLabel: Finds elements by their associated label. Example: await page.getByLabel('email').click().
+npx playwright test
 
-c. getByPlaceholder: Locates elements by their placeholder text. Example: await page.getByPlaceholder('Jane Doe').click().
+b. Para executar os testes no modo com interface gráfica (navegador visível) (adicione --headed) (todos os projetos/navegadores)
 
-d. getByText: Uses static text displayed on the web page. Example: await page.getByText('Using the grid').click().
+npx playwright test --headed
 
-e. getByTitle: Finds elements by their title attribute. Example: await page.getByTitle('IoT dashboard').click().
+c. Para visualizar o relatório após a execução dos testes
 
-f. getByTestId: Uses custom test IDs defined in the source code. Example: await page.getByTestId('sign-in').click().
+npx playwright show-report
 
+Executando Testes em Navegadores Específicos (projeto)
+
+d. Para executar testes em um navegador específico, especifique o projeto
+
+npx playwright test --project=Chromium
+
+Executando Arquivos de Teste Específicos
+
+e. Para executar um arquivo de teste específico e com um navegador específico (projeto)
+
+npx playwright test example.spec.ts
+
+npx playwright test example.spec.ts --project=Chromium
+
+f. Para executar um teste específico pelo nome (todos os projetos/navegadores):
+
+npx playwright test -g "tem título"
+
+Para pular alguns testes, podemos usar `.skip` na função de teste para ignorá-los durante a execução:
+
+test.skip('', async ({page}) => {})
+
+Para executar apenas um teste de condição (TC) em um arquivo, podemos usar `.only`:
+
+test.only('', async ({page}) => {})
+
+Executando no modo de interface gráfica:
+
+npx playwright test --ui
+
+Opções de depuração
+
+a. Para executar testes com rastreamento, use o comando. Dessa forma, após a execução, consulte o arquivo de relatório gerado e você poderá ver o rastreamento.
+
+npx playwright test --trace on
+
+b. Para depurar, execute o comando e o Playwright abrirá uma nova janela para visualizar o código a ser depurado:
+
+npx playwright test --debug
+
+c. Coloque um ponto de interrupção no lado esquerdo do código e execute usando a opção de depuração no plugin Playwright do VS Code.
 
 *
 
+---> Terminologia HTML
 
+um. Tag HTML: Começa e termina com chaves angulares <> (ex.: <input>).
+
+b. Atributos HTML: Características das tags HTML, que podem ou não ter valores (ex.: placeholder="email").
+
+c. Elementos Pai e Filho: Os elementos acima são elementos pai, enquanto os abaixo são elementos filho. Elementos irmãos estão no mesmo nível.
+*
+
+
+---> Regras de sintaxe do localizador:
+
+um. Por nome da tag: use o nome da tag como uma string. Por exemplo, page.locator('entrada').
+
+b. Por ID: prefixe o ID com um sinal de cerquilha. Exemplo: page.locator('#input-email1').
+
+c. Por classe: prefixe a classe com um ponto. Exemplo: page.locator('.shape-rectangle').
+
+d. Por Atributo: Use colchetes. Exemplo: page.locator('[placeholder="email"]').
+
+e. Combinando Seletores: Combine a tag e o atributo sem espaços. Exemplo: `page.locator('input[placeholder="email"]')`.
+
+f. XPath: Embora possível, não é recomendado. Exemplo: `page.locator('//input[@id="input-email1"]')`.
+
+g. Correspondência de Texto: Use `page.locator({ text: 'texto parcial' })` para correspondências parciais e `page.locator({ text: 'texto exato' })` para correspondências exatas.
+
+*
+
+---> Melhores Práticas para Localizadores
+
+Use os seguintes métodos para criar localizadores visíveis ao usuário:
+
+a. `getByRole`: Identifica elementos por sua função. Exemplo: `await page.getByRole('textbox', { name: 'email' })`.
+
+b. `getByLabel`: Encontra elementos pelo rótulo associado. Exemplo: `await page.getByLabel('email').click()`.
+
+c. getByPlaceholder: Localiza elementos pelo texto de espaço reservado. Exemplo: await page.getByPlaceholder('Jane Doe').click().
+
+d. getByText: Usa o texto estático exibido na página da web. Exemplo: await page.getByText('Usando a grade').click().
+
+e. getByTitle: Encontra elementos pelo atributo title. Exemplo: await page.getByTitle('Painel de controle IoT').click().
+
+f. getByTestId: Usa IDs de teste personalizados definidos no código-fonte. Exemplo: await page.getByTestId('sign-in').click().
+
+*
 ---> Faker
 
 https://fakerjs.dev/guide/
