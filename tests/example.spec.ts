@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-test('Pagina inicial', async ({ page }) => {
-  await page.goto('http://localhost:4200/pages/iot-dashboard');
-});
+
+test.beforeEach('Entrar na pagina', async ({page})=>[
+  await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')
+])
 
 test('Como utilizar Locator', async ({ page }) => {
 
-  await page.goto('http://localhost:4200/pages/iot-dashboard')
   await page.getByText('Forms').click()
   await page.getByText('Form Layouts').click()
 
@@ -46,9 +46,8 @@ test('Como utilizar Locator', async ({ page }) => {
 
 })
 
-test('User facing locators', async ({ page }) => {
+test('Localizadores voltados para usuario', async ({ page }) => {
 
-  await page.goto('http://localhost:4200/pages/iot-dashboard')
   await page.getByText('Forms').click()
   await page.getByText('Form Layouts').click()
 
@@ -80,7 +79,6 @@ test('User facing locators', async ({ page }) => {
 
 test('utilizando expect', async ({ page }) => {
 
-  await page.goto('http://localhost:4200/pages/iot-dashboard')
   await page.getByText('Forms').click()
   await page.getByText('Form Layouts').click()
 
